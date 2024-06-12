@@ -18,9 +18,21 @@ trait CombinedActionsTrait
     public function configureActions(Actions $actions): Actions
     {
         // $genreLabel = $this->genre === 1 ? 'Masculin' : 'Féminin';
-        // $label = sprintf('Créer une nouvelle %s %s', $this->entityName, $genreLabel);
+        $label = '';
         $this->entityName = $this->extractEntityName($this->entityName);
-        $label = $this->genre === 1 ? 'saisir une nouvelle '.$this->entityName : 'saisir un nouveau '.$this->entityName;
+        dump($this->entityName);
+        $firstLetter = strtolower($this->entityName[0]);
+        //si le nom de l'entité commence par une voyelle
+        // if(preg_match('/^[aeiou]$/', $firstLetter)){
+        // //si le genre est feminin alors recoit "nouvelle" sinon "nouvel"
+        //     $label = $this->genre === 1 ? 'saisir une nouvelle '.$this->entityName : 'saisir un nouvel '.$this->entityName;
+        // }else{
+        // //sinon si l'entité ne commence pas par une voyelle, 
+        // $label = $this->genre === 1 ? 'saisir une nouvelle '.$this->entityName : 'saisir un nouveau '.$this->entityName;
+        // }
+
+        $label = preg_match('/^[aeiou]$/', $firstLetter)? ($this->genre === 1 ? 'saisir une nouvelle ' . $this->entityName : 'saisir un nouvel ' . $this->entityName)
+                    : ($this->genre === 1 ? 'saisir une nouvelle ' . $this->entityName : 'saisir un nouveau ' . $this->entityName);
 
         
         $actions
@@ -39,7 +51,7 @@ trait CombinedActionsTrait
 
     public function extractEntityName(string $fqcn): string
     {
-        $parts = explode('\\', $fqcn);dump($parts);
+        $parts = explode('\\', $fqcn);//dd($fqcn);
         $entityName = end($parts);//dd($entityName);
         // $entityName = ucfirst(strtolower(preg_replace('/([a-z])([A-Z])/', '$1 $2', $className)));
         
