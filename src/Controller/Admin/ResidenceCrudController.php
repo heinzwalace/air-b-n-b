@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Residence;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -32,6 +33,15 @@ class ResidenceCrudController extends AbstractCrudController
             TextField::new('name'),
             IntegerField::new('rooms')
         ];
+    }
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', 'Résidences')
+            ->setPageTitle('detail', 'voir Résidence');
+            // ->setPageTitle('edit', 'Modifier Réservation')
+            // ->setPageTitle('detail', 'Détails de la Réservation');
     }
     
 }
