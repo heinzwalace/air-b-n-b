@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Locataire;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
@@ -37,4 +38,15 @@ class LocataireCrudController extends AbstractCrudController
         ];
     }
     */
+
+    public function configureCrud(Crud $crud): Crud
+    {
+        return $crud
+            ->setPageTitle('index', 'Résidences')
+            // ->setPageTitle('detail', 'voir Résidence')
+            ->setPageTitle('detail', fn (Locataire $locataire) => (string) $locataire);
+
+        // ->setPageTitle('edit', 'Modifier Réservation')
+        // ->setPageTitle('detail', 'Détails de la Réservation');
+    }
 }

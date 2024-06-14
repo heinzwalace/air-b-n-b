@@ -36,7 +36,17 @@ class Reservation
     private ?Residence $residence = null;
 
     #[ORM\Column]
-    private ?bool $isPaid = null;
+    private ?bool $isPaid = false;
+
+    public function __construct()
+    {
+        $this->nbJours = 10; // Valeur par défaut
+    }
+
+    public function __toString()
+    {
+        return 'réservation n° '.$this->id;
+    }
 
     public function getId(): ?int
     {

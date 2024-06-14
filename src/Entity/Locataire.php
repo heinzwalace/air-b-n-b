@@ -51,6 +51,11 @@ class Locataire
         $this->reservations = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->firstname.' '.$this->lastname;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -152,12 +157,12 @@ class Locataire
         return $this;
     }
 
-    public function getPhone(): ?int
+    public function getPhone()
     {
         return $this->phone;
     }
 
-    public function setPhone(?int $phone): static
+    public function setPhone($phone): static
     {
         $this->phone = $phone;
 

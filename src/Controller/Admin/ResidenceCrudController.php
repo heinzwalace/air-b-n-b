@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Reservation;
 use App\Entity\Residence;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -13,7 +14,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 class ResidenceCrudController extends AbstractCrudController
 {
 
-    use Trait\CombinedActionsTrait; 
+    use Trait\CombinedActionsTrait;
 
     public int $genre = 1;
 
@@ -26,7 +27,7 @@ class ResidenceCrudController extends AbstractCrudController
     {
         $this->setEntityName($this->extractEntityName(self::getEntityFqcn()));
     }
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -39,9 +40,18 @@ class ResidenceCrudController extends AbstractCrudController
     {
         return $crud
             ->setPageTitle('index', 'Résidences')
-            ->setPageTitle('detail', 'voir Résidence');
-            // ->setPageTitle('edit', 'Modifier Réservation')
-            // ->setPageTitle('detail', 'Détails de la Réservation');
+            // ->setPageTitle('detail', 'voir Résidence')
+            ->setPageTitle('detail', fn (Residence $residence) => (string) $residence);
+
+        // ->setPageTitle('edit', 'Modifier Réservation')
+        // ->setPageTitle('detail', 'Détails de la Réservation');
+    }
+
+    public function createEntity(string $entityFqcn)
+    {
+        $entity = parent::createEntity($entityFqcn);
+        $this->setCurrentEntity($entity);
+        return $entity;
     }
     
 }
