@@ -80,14 +80,14 @@ class ReservationCrudController extends AbstractCrudController
         return [
             // Champs non mappés pour Locataire
             IdField::new('id')->hideOnForm(),
-            TextField::new('lastname')->setFormTypeOption('mapped', false)->setLabel('Nom'),
-            TextField::new('firstname')->setFormTypeOption('mapped', false)->setLabel('prénom'),
-            // AssociationField::new('locataire', 'Locataire')->formatValue(function ($value, $entity) {
-            //     if ($value instanceof Locataire) {
-            //         return $value->getFirstname() . ' ' . $value->getLastname();
-            //     }
-            //     return '';
-            // })->onlyOnIndex(),
+            TextField::new('lastname')->setFormTypeOption('mapped', false)->setLabel('Nom')->hideOnIndex(),
+            TextField::new('firstname')->setFormTypeOption('mapped', false)->setLabel('prénom')->hideOnIndex(),
+            AssociationField::new('locataire', 'Locataire')->formatValue(function ($value, $entity) {
+                if ($value instanceof Locataire) {
+                    return $value->getFirstname() . ' ' . $value->getLastname();
+                }
+                return '';
+            })->onlyOnIndex(),
             TelephoneField::new('telephone')->setFormTypeOption('mapped', false)->hideOnIndex(),
             EmailField::new('email')->setFormTypeOption('mapped', false)->hideOnIndex(),
             DateField::new('debut')->setRequired(false)->setLabel('arrivée'),
