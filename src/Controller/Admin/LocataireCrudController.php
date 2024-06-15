@@ -42,7 +42,7 @@ class LocataireCrudController extends AbstractCrudController
     public function configureCrud(Crud $crud): Crud
     {
         return $crud
-            ->setPageTitle('index', 'Résidences')
+            ->setPageTitle('index', 'Locataires')
             // ->setPageTitle('detail', 'voir Résidence')
             ->setPageTitle('detail', fn (Locataire $locataire) => (string) $locataire);
 

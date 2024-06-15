@@ -18,16 +18,14 @@ class DashboardController extends AbstractDashboardController
 {
 
     public function __construct(private AdminUrlGenerator $adminUrlGenerator)
-    {
-        
-    }
+    {}
 
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
 
         $url = $this->adminUrlGenerator
-               ->setController(ResidenceCrudController::class)
+               ->setController(ReservationCrudController::class)
                ->generateUrl();
 
         return $this->redirect($url);
@@ -57,6 +55,7 @@ class DashboardController extends AbstractDashboardController
 
     public function configureMenuItems(): iterable
     {
+
         yield MenuItem::linkToDashboard('Tableau2bord');
 
         yield MenuItem::subMenu('Résidences',  'fa fa-home')->setSubItems([

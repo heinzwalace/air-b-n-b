@@ -38,6 +38,12 @@ class Reservation
     #[ORM\Column]
     private ?bool $isPaid = false;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $updatedAt = null;
+
     public function __construct()
     {
         $this->nbJours = 10; // Valeur par défaut
@@ -94,7 +100,7 @@ class Reservation
         return $this->nbJours;
     }
 
-    public function setJours(int $nbJours): static
+    public function setNbJours(int $nbJours): static
     {
         $this->nbJours = $nbJours;
 
@@ -145,6 +151,30 @@ class Reservation
     public function setPaid(bool $isPaid): static
     {
         $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

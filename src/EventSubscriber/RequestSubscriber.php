@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use App\Entity\Locataire;
+use App\Entity\Reservation;
 
 class RequestSubscriber implements EventSubscriberInterface
 {
@@ -37,41 +38,54 @@ class RequestSubscriber implements EventSubscriberInterface
         $request = $event->getRequest();
 
         // Check if the request is a POST request and if it's for a specific route or path
-        if ($request->isMethod('POST')) {
-            // $reservationData = $request->request;
-            $formData = $request->request->all();
+        // if ($request->isMethod('POST')) {
+        //     $formData = $request->request->all();
 
-            if (isset($formData['Reservation'])) {
-                // Accède aux données spécifiques de "Reservation"
-                $reservationData = $formData['Reservation'];
-                dump($reservationData);
+        //     if (isset($formData['Reservation'])) {
+        //         $reservationData = $formData['Reservation'];
 
-                $lastname = $reservationData['lastname'] ?? null;
-                $firstname = $reservationData['firstname'] ?? null;
-                $telephone = $reservationData['telephone'] ?? null;
-                $email = $reservationData['email'] ?? null;
+        //         $lastname = $reservationData['lastname'] ?? null;
+        //         $firstname = $reservationData['firstname'] ?? null;
+        //         $telephone = $reservationData['telephone'] ?? null;
+        //         $email = $reservationData['email'] ?? null;
 
-                // Create a new Locataire entity if all required data is present
-                if ($lastname && $firstname && $email && $telephone) {
-                    $locataire = new Locataire();
-                    $locataire->setLastname($lastname);
-                    $locataire->setFirstname($firstname);
-                    $locataire->setEmail($email);
-                    $locataire->setPhone($telephone);
+        //         // Create a new Locataire entity if all required data is present
+        //         if ($lastname && $firstname && $email && $telephone) {
+        //             $locataire = new Locataire();
+        //             $locataire->setLastname($lastname);
+        //             $locataire->setFirstname($firstname);
+        //             $locataire->setEmail($email);
+        //             $locataire->setPhone($telephone);
 
-                    // Persist the Locataire entity
-                    $this->entityManager->persist($locataire);
-                    $this->entityManager->flush();
+        //             // Persist the Locataire entity
+        //             $this->entityManager->persist($locataire);
+        //             $this->entityManager->flush();
 
-                    // Optionally, log the creation of the Locataire entity
-                    $this->logger->info('New Locataire created', [
-                        'lastname' => $lastname,
-                        'firstname' => $firstname,
-                        'email' => $email,
-                        'telephone' => $telephone,
-                    ]);
-                }
-            }
-        }
+                    // Now that Locataire is persisted, create a new Reservation entity
+                    // $reservation = new Reservation();
+                    
+                    // // Optionally, set other fields in the Reservation entity
+                    // $reservation->setDebut(new \DateTime($reservationData['debut']));
+                    // $reservation->setFin(new \DateTime($reservationData['fin']));
+                    // $reservation->setCreatedAt(new \DateTimeImmutable('now'));
+
+                    // // Associate the Locataire with the Reservation
+                    // $reservation->setLocataire($locataire);
+
+                    // // Persist the Reservation entity
+                    // $this->entityManager->persist($reservation);
+                    // $this->entityManager->flush();
+
+                    // Optionally, log the creation of the Locataire and Reservation entities
+        //             $this->logger->info('New Locataire and Reservation created', [
+        //                 'lastname' => $lastname,
+        //                 'firstname' => $firstname,
+        //                 'email' => $email,
+        //                 'telephone' => $telephone,
+        //                 'locataireId' => $locataire->getId(),
+        //             ]);
+        //         }
+        //     }
+        // }
     }
 }

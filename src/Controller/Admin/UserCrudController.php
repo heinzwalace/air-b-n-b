@@ -24,7 +24,7 @@ class UserCrudController extends AbstractCrudController
 
     public function __construct()
     {
-        $this->setEntityName('App\Entity\Utilisateur');
+        $this->setEntityName('App\Entity\Administrateur');
     }
     
     public function configureFields(string $pageName): iterable
@@ -34,8 +34,8 @@ class UserCrudController extends AbstractCrudController
             // Using ChoiceField for roles
             ChoiceField::new('roles')
                 ->setChoices([
-                    'Admin' => 'ROLE_ADMIN',
-                    'User' => 'ROLE_USER',
+                    'administrateur' => 'ROLE_ADMIN',
+                    'simple utilisateur' => 'ROLE_USER',
                     // Add other roles as needed
                 ])
                 ->allowMultipleChoices(),
