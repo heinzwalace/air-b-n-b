@@ -26,3 +26,34 @@ class LocataireCrudController extends AbstractCrudController
     }
     */
 }
+
+
+
+    public function getDirPath()
+    {
+
+        $rootDirectory = realpath(__DIR__ . '/..');
+        $pathToConfigDirectory = realpath(__DIR__ . '/../../config/packages');
+        file_get_contents($pathToConfigDirectory . ' /security.yaml');
+        return  $pathToConfigDirectory;
+    }
+
+    public function getParentDirectoryPath()
+    {
+        // Obtenir le chemin absolu du répertoire courant
+        $currentDirectory = realpath(__DIR__);
+
+        // Obtenir le chemin absolu du dossier parent
+        $parentDirectory = realpath(__DIR__ . '/..');
+
+        if ($parentDirectory === false) {
+            return "Le chemin n'existe pas ou n'est pas accessible.";
+        }
+
+        // Comparer les chemins pour vérifier si nous sommes hors du dossier parent
+        if ($parentDirectory !== $currentDirectory) {
+            return "Nous sommes maintenant dans le dossier parent: " . $parentDirectory;
+        } else {
+            return "Nous ne sommes pas en dehors du dossier parent.";
+        }
+    }

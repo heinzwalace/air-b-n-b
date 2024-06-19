@@ -20,20 +20,20 @@ class ExceptionSubscriber implements EventSubscriberInterface
     public function onKernelException(ExceptionEvent $event)
     {
         // Get the exception object from the received event
-        $exception = $event->getThrowable();
+        // $exception = $event->getThrowable();
         
-        // Log the exception message
-        $this->logger->error('An exception occurred', [
-            'exception' => $exception
-        ]);
+        // // Log the exception message
+        // $this->logger->error('An exception occurred', [
+        //     'exception' => $exception
+        // ]);
 
-        // Optionally, you can modify the response object to display a custom error page
-        $response = new Response();
-        $response->setContent('An error occurred: ' . $exception->getMessage());
-        $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+        // // Optionally, you can modify the response object to display a custom error page
+        // $response = new Response();
+        // $response->setContent('An error occurred: ' . $exception->getMessage());
+        // $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
 
-        // Send the modified response object to the event
-        $event->setResponse($response);
+        // // Send the modified response object to the event
+        // $event->setResponse($response);
     }
 
     public static function getSubscribedEvents()

@@ -41,8 +41,8 @@ trait CombinedActionsTrait
         }
 
         $actions
-            ->disable(Action::DELETE, Action::EDIT)
-            ->add(Crud::PAGE_INDEX, Action::DETAIL)
+            ->disable(Action::DELETE)
+            ->add(Crud::PAGE_INDEX, Action::DETAIL, Action::EDIT)
             ->update(
                 Crud::PAGE_INDEX,
                 Action::NEW,
