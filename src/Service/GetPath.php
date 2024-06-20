@@ -12,12 +12,10 @@ class GetPath
     // Propriétés privées
     private $pathToConfigDirectory;
     private $stringToCheck = "- { path: ^/admin, roles: ROLE_ADMIN }";
-    private $pattern = '/^\s*- \{ path: \^\/admin, roles: ROLE_ADMIN \}\s*$/m';
-    private $patterm = '/^\s*[^#]-\s*\{ path: \^\/admin, roles: ROLE_ADMIN \}\s*$/m';
-
-    // private $replacement = '#$0';
-    private $replacement = "\t\t# - { path: ^/admin, roles: ROLE_ADMIN }";
-    private $decommenter = "\t\t - { path: ^/admin, roles: ROLE_ADMIN }";
+    // private $pattern = '/^\s*- \{ path: \^\/admin, roles: ROLE_ADMIN \}\s*$/m';
+    private $pattern = '/^(\s*)-\s*\{\s*path:\s*\^\/admin,\s*roles:\s*ROLE_ADMIN\s*\}/m';
+    private $replacement = '$1# - { path: ^/admin, roles: ROLE_ADMIN }';
+    // private $decommenter = "\t\t - { path: ^/admin, roles: ROLE_ADMIN }";
 
     public function __construct()
     {
@@ -36,7 +34,8 @@ class GetPath
             // dump(preg_match($this->patterm, $fileContents));dd('bol');
             if (preg_match($this->pattern, $this->stringToCheck)) {
                 // Utilisation de preg_replace pour commenter la ligne
-                $fileContentsUpdated = preg_replace($this->pattern, $this->decommenter, $fileContents);
+
+                $fileContentsUpdated = preg_replace($this->pattern, $this->replacement, $fileContents);
 
                 if ($fileContentsUpdated === null) {
                     // Gestion de l'erreur si la regex échoue (syntaxe invalide ou autre)
@@ -49,8 +48,7 @@ class GetPath
                     throw new \RuntimeException("Impossible d'écrire dans le fichier YAML : {$pathToSecurityYaml}");
                 }
 
-                // Indiquer que la ligne a été commentée avec succès
-                echo "Ligne commentée avec succès.";
+                    return true;
             } else {
                 echo "Ligne non commentée.";
             }
